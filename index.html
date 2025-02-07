@@ -33,6 +33,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin: 20px 0;
+            width: 100%;
         }
         button:hover {
             background-color: #0056b3;
@@ -119,22 +121,101 @@
         <p>Can you measure the speed of value delivery?</p>
     </div>
 
+    <div class="category">
+        <h2>Value Alignment</h2>
+        <p>This section assesses how well value delivery aligns with customer expectations.</p>
+        <select id="q7">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Is your value proposition aligned with customer success metrics?</p>
+        
+        <select id="q8">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Do you regularly validate value alignment with stakeholders?</p>
+        
+        <select id="q9">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Can you demonstrate value alignment across different customer segments?</p>
+    </div>
+
+    <div class="category">
+        <h2>Value Realization</h2>
+        <p>This section evaluates how effectively customers achieve their desired outcomes.</p>
+        <select id="q10">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Do you have a systematic approach to measure value realization?</p>
+        
+        <select id="q11">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Can you track value realization throughout the customer journey?</p>
+        
+        <select id="q12">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Do you have a process for addressing value realization gaps?</p>
+    </div>
+
     <button onclick="calculateScore()">Calculate Score</button>
     <div id="results"></div>
 
     <script>
         function calculateScore() {
             const scores = [];
-            for (let i = 1; i <= 6; i++) {
+            for (let i = 1; i <= 12; i++) {
                 const score = document.getElementById(`q${i}`).value;
                 if (score) scores.push(parseInt(score));
             }
             
-            if (scores.length < 6) {
+            if (scores.length < 12) {
                 alert("Please answer all questions");
                 return;
             }
             
             const totalScore = scores.reduce((a, b) => a + b, 0);
             const average = totalScore / scores.length;
-            let grade =
+            let grade = '';
+            
+            if (average >= 3.5) grade = 'A';
+            else if (average >= 3) grade = 'B';
+            else if (average >= 2) grade = 'C';
+            else grade = 'D';
+            
+            document.getElementById('results').innerHTML = `
+                <h3>Results</h3>
+                <p>Total Score: ${totalScore}/48</p>
+                <p>Average: ${average.toFixed(2)}</p>
+                <p>Grade: ${grade}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
+

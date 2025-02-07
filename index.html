@@ -70,39 +70,21 @@
             margin-bottom: 40px;
             font-size: 32px;
         }
-        .email-section {
+        .submit-button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
             margin-top: 20px;
-        }
-        .email-input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
+            box-sizing: border-box;
         }
-        .email-label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-        }
-        .results-card {
-            background-color: #f8f9fa;
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 4px solid #007bff;
-            margin-top: 20px;
-        }
-        .grade-section {
-            margin: 15px 0;
-            padding: 10px;
-            background-color: white;
-            border-radius: 4px;
-        }
-        .grade-explanation {
-            color: #666;
-            line-height: 1.6;
-            margin-top: 15px;
+        .submit-button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
@@ -266,16 +248,6 @@
         <div id="results"></div>
     </div>
 
-    <div class="category">
-        <h2>Stay Connected</h2>
-        <p>Want to learn more about your Value Intelligence score and receive personalized recommendations?</p>
-        <div class="email-section">
-            <label for="email" class="email-label">Enter your email address:</label>
-            <input type="email" id="email" class="email-input" placeholder="youremail@example.com">
-            <button onclick="submitEmail()">Get Detailed Analysis</button>
-        </div>
-    </div>
-
     <script>
         function calculateScore() {
             const scores = [];
@@ -314,10 +286,10 @@
             }
 
             document.getElementById('results').innerHTML = `
-                <div class="results-card">
+                <div style="background-color: #f8f9fa; padding: 25px; border-radius: 8px; border-left: 4px solid #007bff;">
                     <h3 style="color: #007bff; margin-bottom: 15px;">Your Value Intelligence Results</h3>
 
-                    <div class="grade-section">
+                    <div style="background-color: white; padding: 15px; border-radius: 4px; margin-bottom: 15px;">
                         <div style="font-size: 18px; margin-bottom: 10px;">
                             <strong>Score Summary:</strong>
                         </div>
@@ -328,34 +300,21 @@
                         </div>
                     </div>
 
-                    <div class="grade-explanation">
+                    <div style="margin-bottom: 15px;">
                         <strong>What this means:</strong><br>
                         ${explanation}
                     </div>
 
-                    <div class="grade-explanation">
+                    <div style="margin-bottom: 20px;">
                         <strong>Recommendations:</strong><br>
                         ${recommendations}
                     </div>
+
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScBxUqYhAnRod7RQUDFdOJ1wVnk9qtW6YpanIbLuYUvQB_0FQ/viewform?usp=dialog" target="_blank" class="submit-button">
+                        Submit Results & Get Detailed Analysis
+                    </a>
                 </div>
             `;
-        }
-
-        function submitEmail() {
-            const email = document.getElementById('email').value;
-            if (!email) {
-                alert('Please enter your email address');
-                return;
-            }
-            if (!isValidEmail(email)) {
-                alert('Please enter a valid email address');
-                return;
-            }
-            alert('Thank you! We will send your detailed analysis shortly.');
-        }
-
-        function isValidEmail(email) {
-            return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
         }
     </script>
 </body>

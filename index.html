@@ -1,85 +1,140 @@
-function App() {
-  const [scores, setScores] = React.useState({});
-
-  const categories = {
-    "Value Clarity": {
-      description: "This section evaluates how well you understand and can articulate the specific value your customers seek.",
-      questions: [
-        "Can you quantify your customer's desired outcome in measurable terms?",
-        "Have you mapped the resources your customer invests to achieve this outcome?",
-        "Do you track the time to first value achievement?"
-      ]
-    },
-    "Value Velocity": {
-      description: "This section measures how quickly and effectively value is delivered to customers.",
-      questions: [
-        "Do you have a clear timeline for value delivery?",
-        "Are there defined milestones for value realization?",
-        "Can you measure the speed of value delivery?"
-      ]
-    },
-    "Value Verification": {
-      description: "This section assesses your ability to measure and validate value delivery.",
-      questions: [
-        "Do you have metrics to verify value achievement?",
-        "Can you demonstrate ROI for your solution?",
-        "Do you collect customer feedback on value realization?"
-      ]
-    }
-  };
-
-  const handleScore = (category, questionIndex, score) => {
-    setScores(prev => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [questionIndex]: score
-      }
-    }));
-  };
-
-  const calculateScore = (category) => {
-    if (!scores[category]) return 0;
-    const categoryScores = Object.values(scores[category]);
-    if (categoryScores.length === 0) return 0;
-    return Math.round(categoryScores.reduce((a, b) => a + b, 0) / categoryScores.length);
-  };
-
-  return (
-    <div className="p-8 max-w-4xl mx-auto bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Value Intelligence Scorecard</h1>
-
-      {Object.entries(categories).map(([category, { description, questions }]) => (
-        <div key={category} className="mb-8 p-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-2 text-gray-700">{category}</h2>
-          <p className="text-gray-600 mb-4">{description}</p>
-
-          {questions.map((question, index) => (
-            <div key={index} className="mb-4">
-              <p className="mb-2 text-gray-700">{question}</p>
-              <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((score) => (
-                  <button
-                    key={score}
-                    onClick={() => handleScore(category, index, score)}
-                    className={`px-4 py-2 rounded transition-colors ${
-                      scores[category]?.[index] === score
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gray-200 hover:bg-gray-300'
-                    }`}
-                  >
-                    {score}
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
-
-          <div className="mt-4 p-3 bg-gray-50 rounded">
-            <span className="font-semibold">Category Score:</span> {calculateScore(category)}/5
-          </div>
-        </div>
-      ))}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value Intelligence Scorecard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .category {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #results {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #444;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Value Intelligence Scorecard</h1>
+    
+    <div class="category">
+        <h2>Value Clarity</h2>
+        <p>This section evaluates how well you understand and can articulate customer value.</p>
+        <select id="q1">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Can you quantify your customer's desired outcome in measurable terms?</p>
+        
+        <select id="q2">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Have you mapped the resources your customer invests to achieve this outcome?</p>
+        
+        <select id="q3">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Do you track the time to first value achievement?</p>
     </div>
-  );
-}
+
+    <div class="category">
+        <h2>Value Velocity</h2>
+        <p>This section measures how quickly and effectively value is delivered.</p>
+        <select id="q4">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Do you have a clear timeline for value delivery?</p>
+        
+        <select id="q5">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Are there defined milestones for value realization?</p>
+        
+        <select id="q6">
+            <option value="">Select a score</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Excellent</option>
+        </select>
+        <p>Can you measure the speed of value delivery?</p>
+    </div>
+
+    <button onclick="calculateScore()">Calculate Score</button>
+    <div id="results"></div>
+
+    <script>
+        function calculateScore() {
+            const scores = [];
+            for (let i = 1; i <= 6; i++) {
+                const score = document.getElementById(`q${i}`).value;
+                if (score) scores.push(parseInt(score));
+            }
+            
+            if (scores.length < 6) {
+                alert("Please answer all questions");
+                return;
+            }
+            
+            const totalScore = scores.reduce((a, b) => a + b, 0);
+            const average = totalScore / scores.length;
+            let grade =

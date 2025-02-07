@@ -1,50 +1,362 @@
-<!-- Previous code remains the same until the calculateScore function -->
-
-<script>
-    function calculateScore() {
-        const scores = [];
-        for (let i = 1; i <= 12; i++) {
-            const score = document.getElementById(`q${i}`).value;
-            if (score) scores.push(parseInt(score));
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value Intelligence Scorecard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
         }
-
-        if (scores.length < 12) {
-            alert("Please answer all questions");
-            return;
+        .category {
+            margin-bottom: 30px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        const totalScore = scores.reduce((a, b) => a + b, 0);
-        const average = totalScore / scores.length;
-        let grade = '';
-        let explanation = '';
-
-        if (average >= 3.5) {
-            grade = 'A';
-            explanation = 'Excellent! Your organization demonstrates strong value intelligence capabilities across all dimensions. You have a mature approach to understanding, delivering, and measuring customer value.';
-        } else if (average >= 3) {
-            grade = 'B';
-            explanation = 'Good performance! While you have solid value intelligence practices in place, there are opportunities to enhance certain areas for even better results.';
-        } else if (average >= 2) {
-            grade = 'C';
-            explanation = 'Fair performance. Your organization has basic value intelligence practices, but significant improvements could be made to better understand and deliver customer value.';
-        } else {
-            grade = 'D';
-            explanation = 'Your value intelligence practices need attention. Consider focusing on developing stronger frameworks for understanding, measuring, and delivering customer value.';
+        .category h2 {
+            color: #444;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
+        .category > p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .question-block {
+            margin-bottom: 25px;
+        }
+        .question-text {
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px 0;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+        .email-section {
+            margin-top: 20px;
+        }
+        .email-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .email-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .results-card {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin-top: 20px;
+        }
+        .grade-section {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+        }
+        .grade-explanation {
+            color: #666;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Value Intelligence Scorecard</h1>
 
-        document.getElementById('results').innerHTML = `
-            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #007bff;">
-                <h3 style="color: #007bff; margin-bottom: 15px;">Your Value Intelligence Results</h3>
-                <div style="margin-bottom: 15px;">
-                    <strong>Total Score:</strong> ${totalScore}/48<br>
-                    <strong>Average:</strong> ${average.toFixed(2)}<br>
-                    <strong>Grade:</strong> ${grade}
+    <div class="category">
+        <h2>Value Clarity</h2>
+        <p>This section evaluates how well you understand and can articulate customer value.</p>
+
+        <div class="question-block">
+            <p class="question-text">Can you quantify your customer's desired outcome in measurable terms?</p>
+            <select id="q1">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No clear metrics defined</option>
+                <option value="2">2 - Fair: Basic metrics identified</option>
+                <option value="3">3 - Good: Clear metrics established</option>
+                <option value="4">4 - Excellent: Comprehensive metrics system</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Have you mapped the resources your customer invests to achieve this outcome?</p>
+            <select id="q2">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No resource mapping</option>
+                <option value="2">2 - Fair: Basic resource identification</option>
+                <option value="3">3 - Good: Detailed resource mapping</option>
+                <option value="4">4 - Excellent: Comprehensive resource analysis</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Do you track the time to first value achievement?</p>
+            <select id="q3">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No tracking system</option>
+                <option value="2">2 - Fair: Basic tracking in place</option>
+                <option value="3">3 - Good: Regular tracking and analysis</option>
+                <option value="4">4 - Excellent: Advanced tracking with insights</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Value Velocity</h2>
+        <p>This section measures how quickly and effectively value is delivered.</p>
+
+        <div class="question-block">
+            <p class="question-text">Do you have a clear timeline for value delivery?</p>
+            <select id="q4">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No timeline defined</option>
+                <option value="2">2 - Fair: Basic timeline exists</option>
+                <option value="3">3 - Good: Detailed timeline with phases</option>
+                <option value="4">4 - Excellent: Comprehensive delivery roadmap</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Are there defined milestones for value realization?</p>
+            <select id="q5">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No milestones defined</option>
+                <option value="2">2 - Fair: Basic milestones identified</option>
+                <option value="3">3 - Good: Clear milestone framework</option>
+                <option value="4">4 - Excellent: Comprehensive milestone system</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Can you measure the speed of value delivery?</p>
+            <select id="q6">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No measurement system</option>
+                <option value="2">2 - Fair: Basic measurements in place</option>
+                <option value="3">3 - Good: Regular speed tracking</option>
+                <option value="4">4 - Excellent: Advanced velocity metrics</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Value Alignment</h2>
+        <p>This section assesses how well value delivery aligns with customer expectations.</p>
+
+        <div class="question-block">
+            <p class="question-text">Is your value proposition aligned with customer success metrics?</p>
+            <select id="q7">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No clear alignment</option>
+                <option value="2">2 - Fair: Basic alignment exists</option>
+                <option value="3">3 - Good: Strong alignment demonstrated</option>
+                <option value="4">4 - Excellent: Perfect alignment with metrics</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Do you regularly validate value alignment with stakeholders?</p>
+            <select id="q8">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No validation process</option>
+                <option value="2">2 - Fair: Occasional validation</option>
+                <option value="3">3 - Good: Regular validation process</option>
+                <option value="4">4 - Excellent: Continuous validation system</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Can you demonstrate value alignment across different customer segments?</p>
+            <select id="q9">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No segment alignment</option>
+                <option value="2">2 - Fair: Basic segment consideration</option>
+                <option value="3">3 - Good: Clear segment alignment</option>
+                <option value="4">4 - Excellent: Perfect cross-segment alignment</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Value Realization</h2>
+        <p>This section evaluates how effectively customers achieve their desired outcomes.</p>
+
+        <div class="question-block">
+            <p class="question-text">Do you have a systematic approach to measure value realization?</p>
+            <select id="q10">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No measurement system</option>
+                <option value="2">2 - Fair: Basic measurements exist</option>
+                <option value="3">3 - Good: Comprehensive measurement</option>
+                <option value="4">4 - Excellent: Advanced measurement system</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Can you track value realization throughout the customer journey?</p>
+            <select id="q11">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No journey tracking</option>
+                <option value="2">2 - Fair: Basic journey mapping</option>
+                <option value="3">3 - Good: Detailed journey tracking</option>
+                <option value="4">4 - Excellent: Complete journey analytics</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Do you have a process for addressing value realization gaps?</p>
+            <select id="q12">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor: No gap analysis</option>
+                <option value="2">2 - Fair: Basic gap identification</option>
+                <option value="3">3 - Good: Structured gap analysis</option>
+                <option value="4">4 - Excellent: Comprehensive gap management</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="category">
+        <button onclick="calculateScore()">Calculate Score</button>
+        <div id="results"></div>
+    </div>
+
+    <div class="category">
+        <h2>Stay Connected</h2>
+        <p>Want to learn more about your Value Intelligence score and receive personalized recommendations?</p>
+        <div class="email-section">
+            <label for="email" class="email-label">Enter your email address:</label>
+            <input type="email" id="email" class="email-input" placeholder="youremail@example.com">
+            <button onclick="submitEmail()">Get Detailed Analysis</button>
+        </div>
+    </div>
+
+    <script>
+        function calculateScore() {
+            const scores = [];
+            for (let i = 1; i <= 12; i++) {
+                const score = document.getElementById(`q${i}`).value;
+                if (score) scores.push(parseInt(score));
+            }
+
+            if (scores.length < 12) {
+                alert("Please answer all questions");
+                return;
+            }
+
+            const totalScore = scores.reduce((a, b) => a + b, 0);
+            const average = totalScore / scores.length;
+            let grade = '';
+            let explanation = '';
+            let recommendations = '';
+
+            if (average >= 3.5) {
+                grade = 'A';
+                explanation = 'Your organization demonstrates exceptional Value Intelligence capabilities. You have established mature systems for understanding, delivering, and measuring customer value.';
+                recommendations = 'Focus on maintaining excellence and innovating new ways to deliver value even faster.';
+            } else if (average >= 3) {
+                grade = 'B';
+                explanation = 'Your organization shows strong Value Intelligence practices with room for optimization. You have good systems in place but can further enhance your value delivery.';
+                recommendations = 'Look for opportunities to strengthen measurement systems and accelerate value delivery timelines.';
+            } else if (average >= 2) {
+                grade = 'C';
+                explanation = 'Your organization has foundational Value Intelligence practices but needs improvement. While basic systems exist, there are significant opportunities for enhancement.';
+                recommendations = 'Focus on developing more robust value measurement systems and clearer value delivery processes.';
+            } else {
+                grade = 'D';
+                explanation = 'Your Value Intelligence practices require immediate attention. Current systems may not effectively support value delivery and measurement.';
+                recommendations = 'Prioritize establishing basic value measurement systems and clear value delivery processes.';
+            }
+
+            document.getElementById('results').innerHTML = `
+                <div class="results-card">
+                    <h3 style="color: #007bff; margin-bottom: 15px;">Your Value Intelligence Results</h3>
+
+                    <div class="grade-section">
+                        <div style="font-size: 18px; margin-bottom: 10px;">
+                            <strong>Score Summary:</strong>
+                        </div>
+                        <div style="font-size: 16px; color: #444;">
+                            Total Score: ${totalScore}/48<br>
+                            Average: ${average.toFixed(2)}<br>
+                            Grade: ${grade}
+                        </div>
+                    </div>
+
+                    <div class="grade-explanation">
+                        <strong>What this means:</strong><br>
+                        ${explanation}
+                    </div>
+
+                    <div class="grade-explanation">
+                        <strong>Recommendations:</strong><br>
+                        ${recommendations}
+                    </div>
                 </div>
-                <div style="color: #666; line-height: 1.5;">
-                    <strong>What this means:</strong><br>
-                    ${explanation}
-                </div>
-            </div>
-        `;
-    }
-</script>
+            `;
+        }
+
+        function submitEmail() {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                alert('Please enter your email address');
+                return;
+            }
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            alert('Thank you! We will send your detailed analysis shortly.');
+        }
+
+        function isValidEmail(email) {
+            return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+        }
+    </script>
+</body>
+</html>

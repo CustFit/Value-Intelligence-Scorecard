@@ -5,13 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Value Intelligence Scorecard</title>
     <style>
-        /* Previous styles remain the same */
-        .email-section {
-            margin-top: 20px;
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .category {
+            margin-bottom: 30px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .category h2 {
+            color: #444;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .category > p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .question-block {
+            margin-bottom: 25px;
+        }
+        .question-text {
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #333;
+        }
+        select {
+            width: 200px;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px 0;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #results {
+            margin-top: 30px;
             padding: 20px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+        .email-section {
+            margin-top: 20px;
         }
         .email-input {
             width: 100%;
@@ -29,15 +92,173 @@
     </style>
 </head>
 <body>
-    <!-- Previous HTML content remains the same until the results div -->
+    <h1>Value Intelligence Scorecard</h1>
 
-    <button onclick="calculateScore()">Calculate Score</button>
-    <div id="results"></div>
+    <div class="category">
+        <h2>Value Clarity</h2>
+        <p>This section evaluates how well you understand and can articulate customer value.</p>
 
-    <div class="email-section">
-        <label for="email" class="email-label">Want to learn more about your score? Enter your email:</label>
-        <input type="email" id="email" class="email-input" placeholder="Enter your email address">
-        <button onclick="submitEmail()">Get Detailed Analysis</button>
+        <div class="question-block">
+            <p class="question-text">Can you quantify your customer's desired outcome in measurable terms?</p>
+            <select id="q1">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Have you mapped the resources your customer invests to achieve this outcome?</p>
+            <select id="q2">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Do you track the time to first value achievement?</p>
+            <select id="q3">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Value Velocity</h2>
+        <p>This section measures how quickly and effectively value is delivered.</p>
+
+        <div class="question-block">
+            <p class="question-text">Do you have a clear timeline for value delivery?</p>
+            <select id="q4">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Are there defined milestones for value realization?</p>
+            <select id="q5">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Can you measure the speed of value delivery?</p>
+            <select id="q6">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Value Alignment</h2>
+        <p>This section assesses how well value delivery aligns with customer expectations.</p>
+
+        <div class="question-block">
+            <p class="question-text">Is your value proposition aligned with customer success metrics?</p>
+            <select id="q7">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Do you regularly validate value alignment with stakeholders?</p>
+            <select id="q8">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Can you demonstrate value alignment across different customer segments?</p>
+            <select id="q9">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Value Realization</h2>
+        <p>This section evaluates how effectively customers achieve their desired outcomes.</p>
+
+        <div class="question-block">
+            <p class="question-text">Do you have a systematic approach to measure value realization?</p>
+            <select id="q10">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Can you track value realization throughout the customer journey?</p>
+            <select id="q11">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="question-block">
+            <p class="question-text">Do you have a process for addressing value realization gaps?</p>
+            <select id="q12">
+                <option value="">Select a score</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Excellent</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="category">
+        <button onclick="calculateScore()">Calculate Score</button>
+        <div id="results"></div>
+    </div>
+
+    <div class="category">
+        <h2>Stay Connected</h2>
+        <p>Want to learn more about your Value Intelligence score and receive personalized recommendations?</p>
+        <div class="email-section">
+            <label for="email" class="email-label">Enter your email address:</label>
+            <input type="email" id="email" class="email-input" placeholder="youremail@example.com">
+            <button onclick="submitEmail()">Get Detailed Analysis</button>
+        </div>
     </div>
 
     <script>
@@ -67,7 +288,6 @@
                 <p>Total Score: ${totalScore}/48</p>
                 <p>Average: ${average.toFixed(2)}</p>
                 <p>Grade: ${grade}</p>
-                <p>Enter your email below to receive a detailed analysis of your score.</p>
             `;
         }
 
